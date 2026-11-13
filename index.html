@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>AI-training voor mkb-teams | Bas Heerkens</title>
+<meta name="description" content="Praktische AI-training op locatie voor mkb-teams. Met jullie eigen werk, van de basis tot AI-agents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: een trainingshand-out. Links uitgelijnd, markeerstift op kernwoorden, iconen per toepassing, CBS-cijfers als staven op schaal, een echte stappenreeks. */
+:root {
+  --paper: #F6F7FA;
+  --paper-2: #ECEFF5;
+  --surface: #FFFFFF;
+  --chip: #E8ECF4;
+  --ink: #131A2B;
+  --muted: #4A5468;
+  --line: #D8DEE9;
+  --accent: #1F45C7;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E3E9FB;
+  --mark: #FFE15A;
+  --band: #131A2B;
+  --band-ink: #F2F4F8;
+  --band-muted: #B8C0D2;
+  --error: #B42318;
+  --shadow: 0 1px 2px rgba(19, 26, 43, .06), 0 10px 30px rgba(19, 26, 43, .08);
+
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1424;
+    --paper-2: #121A2E;
+    --surface: #161F35;
+    --chip: #1E2945;
+    --ink: #E9EDF5;
+    --muted: #A6B0C4;
+    --line: #27324F;
+    --accent: #8AA4FF;
+    --accent-ink: #0E1424;
+    --accent-soft: #1E2A52;
+    --mark: rgba(242, 201, 76, .40);
+    --band: #1A2442;
+    --band-ink: #F2F4F8;
+    --band-muted: #B8C0D2;
+    --error: #FF8A80;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .28);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1424;
+  --paper-2: #121A2E;
+  --surface: #161F35;
+  --chip: #1E2945;
+  --ink: #E9EDF5;
+  --muted: #A6B0C4;
+  --line: #27324F;
+  --accent: #8AA4FF;
+  --accent-ink: #0E1424;
+  --accent-soft: #1E2A52;
+  --mark: rgba(242, 201, 76, .40);
+  --band: #1A2442;
+  --band-ink: #F2F4F8;
+  --band-muted: #B8C0D2;
+  --error: #FF8A80;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .28);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-feature-settings: "locl" 0;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.4rem, 4.2vw + 1rem, 4.3rem); font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.55rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+svg.ic { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.hl {
+  color: inherit;
+  background-color: transparent;
+  background-image: linear-gradient(transparent 56%, var(--mark) 56%, var(--mark) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 .06em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation: draw .8s ease-out .15s both;
+}
+@keyframes draw { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+
+.eyebrow { font-family: var(--font-mono); font-size: .78rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: .7em 1.25em; border-radius: 10px;
+  border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  font-weight: 700; font-size: 1rem; font-family: inherit; text-decoration: none; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-small { min-height: 42px; padding: .45em 1.05em; font-size: .95rem; }
+.btn-small .short { display: none; }
+
+/* Bovenbalk en kop */
+.strip { background: var(--band); color: var(--band-muted); font-size: .85rem; }
+.strip .wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 22px; padding-block: 8px; text-align: center; }
+.strip span { display: inline-flex; align-items: center; gap: 8px; }
+.strip svg.ic { width: 16px; height: 16px; color: #F2C94C; }
+.strip b { color: var(--band-ink); }
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.top-in { display: flex; align-items: center; gap: 20px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); margin-right: auto; min-width: 0; }
+.avatar-sm { width: 42px; height: 42px; border-radius: 50%; flex: none; box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--accent); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.brand-text strong { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; white-space: nowrap; }
+.brand-text span { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.nav { display: flex; align-items: center; gap: 2px; }
+.nav a { color: var(--ink); text-decoration: none; font-size: .98rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; }
+.nav a:hover { background: var(--chip); }
+.menu-btn { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+
+/* Hero */
+.hero {
+  padding-block: clamp(48px, 7vw, 92px);
+  background: radial-gradient(ellipse 60% 70% at 88% 30%, var(--accent-soft), transparent 70%), var(--paper);
+}
+.hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+.hero-text { min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.lead { font-size: 1.25rem; color: var(--muted); max-width: 33em; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.proof { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.proof li { display: flex; align-items: center; gap: 8px; font-size: .92rem; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px 6px 10px; }
+.proof li strong { font-family: var(--font-display); font-weight: 700; }
+.proof svg.ic { width: 18px; height: 18px; color: var(--accent); }
+
+.hero-visual { min-width: 0; position: relative; padding: 18px; }
+.hero-visual::before {
+  content: ""; position: absolute; inset: 0; border-radius: 28px;
+  background-image: radial-gradient(var(--line) 1.4px, transparent 1.4px);
+  background-size: 18px 18px;
+}
+.outcomes {
+  position: relative; margin: 0; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 20px; padding: 22px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.outcomes figcaption { padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+.outcomes figcaption strong { font-family: var(--font-display); font-size: 1.2rem; }
+.outcomes ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.outcomes li { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.outcomes li:last-child { border-bottom: none; }
+.outcomes li div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.outcomes li b { font-size: 1.02rem; line-height: 1.3; }
+.outcomes li span { font-size: .93rem; color: var(--muted); line-height: 1.4; }
+.ic-box { width: 42px; height: 42px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; flex: none; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 12px; border-top: 1px solid var(--line); margin-top: 6px; font-size: .85rem; color: var(--muted); }
+.tools span { font-family: var(--font-mono); font-size: .75rem; background: var(--chip); border-radius: 6px; padding: 4px 9px; color: var(--ink); }
+
+/* Secties */
+.section { padding-block: clamp(56px, 8vw, 96px); }
+.alt { background: var(--paper-2); }
+.section-head { display: flex; flex-direction: column; gap: 12px; max-width: 42em; margin-bottom: 36px; }
+.section-head p:not(.eyebrow) { color: var(--muted); }
+
+/* De kloof */
+.gap-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; }
+.gap-col { min-width: 0; border-radius: 18px; padding: clamp(22px, 3vw, 30px); display: flex; flex-direction: column; gap: 16px; }
+.gap-tech { background: var(--accent-soft); }
+.gap-human { background: var(--surface); border: 1px solid var(--line); }
+.gap-col h3 { display: flex; align-items: center; gap: 10px; }
+.gap-col h3 svg.ic { color: var(--accent); }
+.gap-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.gap-col li { display: flex; gap: 10px; align-items: flex-start; font-size: 1.02rem; line-height: 1.45; }
+.gap-col li svg.ic { width: 20px; height: 20px; margin-top: .1em; }
+.gap-tech li svg.ic { color: var(--accent); }
+.gap-human li svg.ic { color: var(--muted); }
+.gap-mid { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 18px; }
+.gap-line { flex: 1; width: 0; border-left: 2px dashed var(--muted); opacity: .5; }
+.gap-label { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; transform: rotate(180deg); }
+.statement { margin-top: clamp(32px, 5vw, 48px); font-family: var(--font-display); font-size: clamp(1.35rem, 1.2vw + 1rem, 1.85rem); font-weight: 600; line-height: 1.3; max-width: 34em; text-wrap: balance; }
+.statement strong { color: var(--accent); }
+
+/* AI-verordening */
+.act { background: var(--surface); border-block: 1px solid var(--line); }
+.act-in { display: grid; grid-template-columns: auto 1fr auto; gap: 20px 28px; align-items: center; padding-block: 26px; }
+.act-in > * { min-width: 0; }
+.act .ic-box { width: 52px; height: 52px; border-radius: 14px; }
+.act .ic-box svg.ic { width: 28px; height: 28px; }
+.act h2 { font-size: 1.3rem; margin-bottom: 4px; }
+.act p { color: var(--muted); font-size: 1.02rem; max-width: 46em; }
+.act-gets { display: flex; flex-direction: column; gap: 6px; font-size: .95rem; }
+.act-gets span { display: flex; align-items: center; gap: 8px; }
+.act-gets svg.ic { width: 18px; height: 18px; color: var(--accent); }
+
+/* Cijfers */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.stats > * { min-width: 0; }
+.stats-intro { display: flex; flex-direction: column; gap: 16px; }
+.stats-intro > p:not(.eyebrow):not(.source) { color: var(--muted); }
+.trend { display: flex; align-items: flex-end; gap: 18px; height: 180px; margin-top: 8px; border-bottom: 2px solid var(--line); }
+.trend-col { flex: 1; max-width: 96px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; height: 100%; }
+.trend-val { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.trend-bar { width: 100%; border-radius: 10px 10px 0 0; background: var(--accent); }
+.trend-col:not(:last-child) .trend-bar { opacity: .4; }
+.trend-years { display: flex; gap: 18px; }
+.trend-years span { flex: 1; max-width: 96px; text-align: center; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+.bars { display: flex; flex-direction: column; gap: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 3vw, 30px); }
+.bars h3 { font-size: 1.05rem; color: var(--muted); font-family: var(--font-body); font-weight: 700; }
+.bar-row { display: grid; grid-template-columns: 4.2rem 1fr; gap: 6px 16px; align-items: center; }
+.bar-num { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.bar-label { font-size: 1rem; }
+.bar-track { grid-column: 2; height: 10px; border-radius: 999px; background: var(--chip); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--accent); }
+.source { font-size: .85rem; color: var(--muted); }
+
+/* Toepassingen */
+.uses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.use { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.use-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.use p { color: var(--muted); font-size: 1rem; }
+.tag { font-size: .78rem; font-weight: 700; background: var(--mark); color: var(--ink); border-radius: 999px; padding: 3px 10px; }
+.toolrow { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--muted); font-size: 1rem; }
+.toolrow b { font-family: var(--font-mono); font-weight: 500; font-size: .85rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; }
+
+/* Aanbod */
+.offers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.offer { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.offer-pick { border: 2px solid var(--accent); box-shadow: var(--shadow); }
+.offer-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+.offer-meta { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .03em; color: var(--muted); }
+.offer > p { color: var(--muted); font-size: 1rem; }
+.offer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 1rem; }
+.offer li { display: flex; gap: 10px; align-items: flex-start; }
+.offer li svg.ic { width: 18px; height: 18px; margin-top: .25em; color: var(--accent); }
+.price { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.price strong { font-family: var(--font-display); font-size: 1.45rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.price span { font-size: .88rem; color: var(--muted); }
+.note { margin-top: 26px; color: var(--muted); max-width: 46em; }
+
+/* Werkwijze */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+.steps li { min-width: 0; position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+  background: var(--accent); color: var(--accent-ink);
+}
+.steps p { color: var(--muted); font-size: 1rem; }
+.steps .optional { background: transparent; border-style: dashed; }
+.steps .optional::before { background: var(--accent-soft); color: var(--accent); }
+.loop { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: .85rem; font-weight: 700; }
+.loop span { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 3px 10px; }
+.loop i { font-style: normal; color: var(--muted); }
+.example { font-family: var(--font-mono); font-size: .82rem; line-height: 1.5; color: var(--muted); background: var(--chip); border-radius: 10px; padding: 10px 12px; }
+
+/* Over mij */
+.about { display: grid; grid-template-columns: 300px 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.about > * { min-width: 0; }
+.profile { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+.photo { width: 100%; aspect-ratio: 1; max-width: 100%; border-radius: 14px; background-color: var(--accent-soft); }
+.profile-name strong { display: block; font-family: var(--font-display); font-size: 1.3rem; }
+.profile-name span { color: var(--muted); font-size: .98rem; }
+.creds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: .95rem; }
+.creds li { display: flex; gap: 10px; align-items: flex-start; }
+.creds svg.ic { width: 18px; height: 18px; margin-top: .2em; color: var(--accent); }
+.about-text { display: flex; flex-direction: column; gap: 18px; max-width: 38em; }
+.about-text p { color: var(--muted); }
+.about-text p strong { color: var(--ink); }
+.about-text .eyebrow { color: var(--muted); }
+.pullquote { font-family: var(--font-display); font-size: clamp(1.3rem, 1vw + 1rem, 1.6rem); font-weight: 600; line-height: 1.35; color: var(--ink) !important; text-wrap: balance; }
+
+/* Vragen */
+.faq { max-width: 48em; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 18px 40px 18px 0; font-weight: 700; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 1.3rem; color: var(--accent); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding: 0 0 20px; color: var(--muted); max-width: 42em; }
+
+/* Contact */
+.contact { background: var(--band); color: var(--band-ink); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.contact-grid > * { min-width: 0; }
+.contact-intro { display: flex; flex-direction: column; gap: 14px; }
+.contact-intro > p { color: var(--band-muted); max-width: 30em; }
+.contact .hl { background-image: linear-gradient(transparent 56%, rgba(242, 201, 76, .45) 56%, rgba(242, 201, 76, .45) 92%, transparent 92%); }
+.contact-me { display: flex; align-items: center; gap: 14px; }
+.avatar { width: 60px; height: 60px; border-radius: 50%; flex: none; border: 2px solid rgba(242, 244, 248, .25); }
+.contact-me strong { display: block; font-family: var(--font-display); font-size: 1.1rem; }
+.contact-me span { color: var(--band-muted); font-size: .92rem; }
+.contact-card { margin-top: 10px; display: flex; flex-direction: column; border-top: 1px solid rgba(242, 244, 248, .18); }
+.contact-row { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid rgba(242, 244, 248, .18); }
+.contact-row .label { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--band-muted); }
+.contact-row .val { font-size: 1.08rem; color: var(--band-ink); overflow-wrap: anywhere; user-select: all; }
+.contact-row a.val { user-select: auto; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.copy { font: inherit; font-size: .85rem; font-weight: 700; color: var(--band-ink); background: transparent; border: 1.5px solid rgba(242, 244, 248, .35); border-radius: 8px; padding: 6px 12px; cursor: pointer; min-height: 36px; }
+.copy:hover { border-color: var(--band-ink); }
+.contact :focus-visible { outline-color: #F2C94C; }
+
+/* Formulier */
+.form { min-width: 0; background: var(--surface); color: var(--ink); border-radius: 20px; padding: clamp(22px, 3vw, 32px); display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow); }
+.form :focus-visible { outline-color: var(--accent); }
+.form h3 { font-size: 1.4rem; }
+.form-sub { color: var(--muted); font-size: 1rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+.field { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.field-wide { grid-column: 1 / -1; }
+.field label { font-size: .92rem; font-weight: 700; }
+.field .opt { font-weight: 400; color: var(--muted); }
+.field input, .field select, .field textarea {
+  font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper);
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-height: 46px;
+}
+.field textarea { resize: vertical; min-height: 92px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.field input[aria-invalid="true"] { border-color: var(--error); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.captcha-slot { min-height: 20px; }
+.captcha-note { font-size: .88rem; color: var(--muted); background: var(--chip); border-radius: 10px; padding: 10px 12px; display: flex; gap: 8px; align-items: center; }
+.captcha-note svg.ic { width: 18px; height: 18px; color: var(--accent); }
+.form-btn { width: 100%; }
+.form-btn[disabled] { opacity: .6; cursor: progress; }
+.form-status { font-size: .98rem; padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); }
+.form-status.is-error { background: var(--chip); border-left: 3px solid var(--error); }
+.form-privacy { font-size: .82rem; color: var(--muted); }
+.foot { background: var(--band); color: var(--band-muted); font-size: .85rem; border-top: 1px solid rgba(242, 244, 248, .12); }
+.foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: space-between; }
+
+@media (max-width: 980px) {
+  .nav {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: var(--shadow);
+    padding: 8px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px));
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px; }
+  .menu-btn { display: inline-flex; }
+  .uses { grid-template-columns: repeat(2, 1fr); }
+  .offers { grid-template-columns: 1fr; max-width: 640px; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .about { grid-template-columns: 1fr; }
+  .profile { max-width: 520px; display: grid; grid-template-columns: 140px 1fr; align-items: start; }
+  .profile .creds { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .hero-grid, .stats, .contact-grid, .gap-grid { grid-template-columns: 1fr; }
+  .gap-mid { flex-direction: row; padding: 14px 0; }
+  .gap-line { width: auto; height: 0; border-left: none; border-top: 2px dashed var(--muted); }
+  .gap-label { writing-mode: horizontal-tb; transform: none; }
+  .act-in { grid-template-columns: auto 1fr; }
+  .act-gets { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 1rem; }
+  .lead { font-size: 1.125rem; }
+  .strip .wrap { font-size: .8rem; gap: 2px 14px; }
+  .brand-text span { display: none; }
+  .btn-small .long { display: none; }
+  .btn-small .short { display: inline; }
+  .btn-small { padding-inline: .85em; }
+  .top-in { gap: 10px; }
+  .brand { gap: 10px; }
+  .avatar-sm { width: 38px; height: 38px; }
+  .brand-text strong { font-size: 1.02rem; overflow: hidden; text-overflow: ellipsis; }
+  .uses, .steps { grid-template-columns: 1fr; }
+  .hero-visual { padding: 10px; }
+  .act-in { grid-template-columns: 1fr; }
+  .profile { grid-template-columns: 96px 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 1fr auto; }
+  .contact-row .label { grid-column: 1 / -1; }
+  .cta-row .btn { flex: 1 1 100%; }
+  .bar-row { grid-template-columns: 3.6rem 1fr; }
+  .trend, .trend-years { gap: 12px; }
+}
+@media (max-width: 370px) {
+  .top-in > .btn-small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hl { animation: none; }
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
+
+/* Foto */
+.photo-img { background-image: url("data:image/jpeg;base64,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"); background-size: cover; background-position: center 30%; }
+</style>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://onlineinfluence.nl/">
+<meta property="og:title" content="AI-training die blijft hangen | Bas Heerkens">
+<meta property="og:description" content="Praktische AI-training op locatie voor mkb-teams. Met jullie eigen werk, van de basis tot AI-agents.">
+<meta property="og:image" content="https://onlineinfluence.nl/bas.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F45C7'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EBH%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-notes" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6l-5 4H4a1 1 0 0 0-1 1z"/><path d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 10h8M8 13h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M11 20V5M17 20v-7M3 20h18"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z"/><path d="M18.5 14l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3V4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3V4z"/><path d="M9 4h6M9 20h6"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol>
+  <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .8-1 1.5v.4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13h6l-1 8 8-10h-6z"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="m8.5 13.5-1.5 7.5 5-2.5 5 2.5-1.5-7.5"/></symbol>
+  <symbol id="i-uni" viewBox="0 0 24 24"><path d="M3 9.5 12 5l9 4.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+</svg>
+
+<div lang="nl">
+<div class="strip">
+  <div class="wrap">
+    <span><svg class="ic"><use href="#i-uni"/></svg>Verbonden aan <b>Hogeschool Utrecht</b></span>
+    <span><svg class="ic"><use href="#i-globe"/></svg>Trainingen in het Nederlands, Engels en Spaans</span>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top">
+      <span class="avatar-sm photo-img" role="img" aria-label="Foto van Bas Heerkens"></span>
+      <span class="brand-text"><strong>Bas Heerkens</strong><span>AI-training · op locatie</span></span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Hoofdmenu">
+      <a href="#aanbod">Aanbod</a>
+      <a href="#werkwijze">Werkwijze</a>
+      <a href="#over">Over mij</a>
+      <a href="#vragen">Vragen</a>
+    </nav>
+    <a class="btn btn-small" href="#contact"><span class="long">Plan een kennismaking</span><span class="short">Kennismaken</span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><svg class="ic"><use href="#i-menu"/></svg><span class="sr">Menu</span></button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">AI-training voor mkb-teams · op locatie</p>
+        <h1>AI-training die <mark class="hl">blijft hangen</mark>.</h1>
+        <p class="lead">AI kan steeds meer, maar teams bewegen niet vanzelf mee. Ik help je team om AI echt te gebruiken in het eigen werk. Praktisch en op locatie, in een halve of hele dag.</p>
+        <div class="cta-row">
+          <a class="btn" href="#contact">Plan een gratis kennismaking</a>
+          <a class="btn btn-ghost" href="#aanbod">Bekijk aanbod en prijzen</a>
+        </div>
+        <ul class="proof">
+          <li><svg class="ic"><use href="#i-users"/></svg><span><strong>300+</strong> professionals getraind in AI</span></li>
+          <li><svg class="ic"><use href="#i-uni"/></svg><span>Verbonden aan Hogeschool Utrecht</span></li>
+          <li><svg class="ic"><use href="#i-cap"/></svg><span><strong>10 jaar</strong> trainer en docent</span></li>
+          <li><svg class="ic"><use href="#i-brain"/></svg><span>Achtergrond in gedragspsychologie</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <figure class="outcomes">
+          <figcaption><strong>Wat het jullie oplevert</strong></figcaption>
+          <ul>
+            <li><span class="ic-box"><svg class="ic"><use href="#i-clock"/></svg></span><div><b>Tijdwinst op dagelijks werk</b><span>Mails, offertes en verslagen in een fractie van de tijd.</span></div></li>
+            <li><span class="ic-box"><svg class="ic"><use href="#i-bolt"/></svg></span><div><b>De volgende dag aan de slag</b><span>Iedereen gaat naar huis met toepassingen voor het eigen werk.</span></div></li>
+            <li><span class="ic-box"><svg class="ic"><use href="#i-lock"/></svg></span><div><b>Duidelijke afspraken</b><span>Iedereen weet wat wel en niet mag met klantgegevens.</span></div></li>
+            <li><span class="ic-box"><svg class="ic"><use href="#i-award"/></svg></span><div><b>Aantoonbaar AI-geletterd</b><span>Een bewijs van deelname voor iedereen, voor je dossier.</span></div></li>
+          </ul>
+          <div class="tools">Met de tools die jullie gebruiken: <span>ChatGPT</span><span>Claude</span><span>Copilot</span><span>Gemini</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="mens">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Waar het vastloopt</p>
+        <h2>De techniek is er. <mark class="hl">De mens nog niet.</mark></h2>
+      </div>
+      <div class="gap-grid">
+        <div class="gap-col gap-tech">
+          <h3><svg class="ic"><use href="#i-spark"/></svg>Wat AI al kan</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg>Teksten, mails en offertes schrijven</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Vergaderingen samenvatten</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Gegevens analyseren en rapporteren</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Als agent zelfstandig taken uitvoeren</li>
+          </ul>
+        </div>
+        <div class="gap-mid" aria-hidden="true"><span class="gap-line"></span><span class="gap-label">de kloof</span><span class="gap-line"></span></div>
+        <div class="gap-col gap-human">
+          <h3><svg class="ic"><use href="#i-users"/></svg>Wat er in teams gebeurt</h3>
+          <ul>
+            <li><svg class="ic"><use href="#i-q"/></svg>Twijfel: mag dit eigenlijk wel?</li>
+            <li><svg class="ic"><use href="#i-q"/></svg>Terugvallen in oude gewoontes</li>
+            <li><svg class="ic"><use href="#i-q"/></svg>Te veel of juist te weinig vertrouwen in AI</li>
+            <li><svg class="ic"><use href="#i-q"/></svg>Geen tijd om het rustig te leren</li>
+          </ul>
+        </div>
+      </div>
+      <p class="statement">Die kloof dicht je met mensen. Door te begrijpen waarom ze twijfelen en ze stap voor stap mee te nemen. <strong>Dat is mijn vak.</strong></p>
+    </div>
+  </section>
+
+  <section class="act" aria-labelledby="act-title">
+    <div class="wrap act-in">
+      <span class="ic-box"><svg class="ic"><use href="#i-shield"/></svg></span>
+      <div>
+        <h2 id="act-title">Werken aan AI-geletterdheid is verplicht</h2>
+        <p>Sinds februari 2025 moeten organisaties die AI gebruiken maatregelen nemen, zodat hun medewerkers er verstandig en veilig mee werken. Dat staat in de Europese AI-verordening. Een training is daarvoor de logische eerste stap.</p>
+      </div>
+      <div class="act-gets">
+        <span><svg class="ic"><use href="#i-check"/></svg>Bewijs van deelname voor iedereen</span>
+        <span><svg class="ic"><use href="#i-check"/></svg>Deelnemerslijst voor je dossier</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="waarom">
+    <div class="wrap stats">
+      <div class="stats-intro">
+        <p class="eyebrow">Wat we zien in het mkb</p>
+        <h2>Je concurrenten zitten niet stil</h2>
+        <p>Bij bedrijven met 10 tot 50 medewerkers is het gebruik van AI in twee jaar meer dan verdubbeld. Bij bedrijven met 50 tot 250 medewerkers gebruikt al 45% AI. Wie nu niet begint, loopt achter.</p>
+        <div>
+          <div class="trend" role="img" aria-label="Aandeel bedrijven met 10 tot 50 medewerkers dat AI gebruikt: 11 procent in 2023, 19 procent in 2024, 27 procent in 2025">
+            <div class="trend-col"><span class="trend-val">11%</span><div class="trend-bar" style="height:48px"></div></div>
+            <div class="trend-col"><span class="trend-val">19%</span><div class="trend-bar" style="height:82px"></div></div>
+            <div class="trend-col"><span class="trend-val">27%</span><div class="trend-bar" style="height:117px"></div></div>
+          </div>
+          <div class="trend-years" aria-hidden="true"><span>2023</span><span>2024</span><span>2025</span></div>
+        </div>
+        <p class="source">Aandeel bedrijven met 10 tot 50 medewerkers dat AI gebruikt. Bron: CBS.</p>
+      </div>
+      <div class="bars" role="group" aria-label="Redenen om geen AI te gebruiken">
+        <h3>Bedrijven die AI hebben overwogen, maar het nog niet gebruiken:</h3>
+        <div class="bar-row">
+          <span class="bar-num">73%</span><span class="bar-label">mist ervaring met AI</span>
+          <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-num">49%</span><span class="bar-label">maakt zich zorgen over privacy</span>
+          <div class="bar-track"><div class="bar-fill" style="width:49%"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-num">42%</span><span class="bar-label">vindt de juridische kant onduidelijk</span>
+          <div class="bar-track"><div class="bar-fill" style="width:42%"></div></div>
+        </div>
+        <p class="source">Bron: CBS, december 2025. Cijfers over 2025.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="toepassingen">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Wat je team leert</p>
+        <h2>We oefenen met het werk dat jullie elke dag doen</h2>
+        <p>Geen algemene demo. We kiezen de taken waar jullie de meeste tijd aan kwijt zijn.</p>
+      </div>
+      <div class="uses">
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-mail"/></svg></span></div>
+          <h3>Mails en offertes</h3>
+          <p>Sneller schrijven in jullie eigen toon, zonder dat het als een robot klinkt.</p>
+        </article>
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-notes"/></svg></span></div>
+          <h3>Vergaderingen</h3>
+          <p>Van opname of aantekeningen naar heldere notulen en actiepunten.</p>
+        </article>
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-mega"/></svg></span></div>
+          <h3>Marketing en social media</h3>
+          <p>Ideeën, teksten en berichten die passen bij jullie merk.</p>
+        </article>
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-chat"/></svg></span></div>
+          <h3>Klantvragen</h3>
+          <p>Snellere en betere antwoorden, op basis van jullie eigen kennis.</p>
+        </article>
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-chart"/></svg></span></div>
+          <h3>Data en Excel</h3>
+          <p>Formules, analyses en rapportages, ook als je geen Excel-kenner bent.</p>
+        </article>
+        <article class="use">
+          <div class="use-top"><span class="ic-box"><svg class="ic"><use href="#i-spark"/></svg></span><span class="tag">Nieuw</span></div>
+          <h3>AI-agents</h3>
+          <p>Wat zijn het, wat kun je er nu al mee en waar moet je op letten?</p>
+        </article>
+      </div>
+      <div class="toolrow">We werken met de tools die jullie gebruiken: <b>ChatGPT</b><b>Claude</b><b>Microsoft Copilot</b><b>Google Gemini</b></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="aanbod">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Aanbod en prijzen</p>
+        <h2>Kies wat bij jullie past</h2>
+        <p>Alles op locatie en afgestemd op jullie team. Combineren kan ook.</p>
+      </div>
+      <div class="offers">
+        <article class="offer offer-pick">
+          <div class="offer-top"><p class="offer-meta">Halve of hele dag</p><span class="tag">Goede start</span></div>
+          <h3>AI-basistraining</h3>
+          <p>Voor teams die willen beginnen, of die al wat ervaring hebben en een stevige basis willen.</p>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg>Wat AI wel en niet kan</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Goede opdrachten geven, met jullie eigen werk</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Veilig werken met gegevens</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Een eerste kennismaking met AI-agents</li>
+          </ul>
+          <div class="price"><strong>vanaf € 1.250</strong><span>Halve dag. Hele dag vanaf € 2.500. Exclusief btw.</span></div>
+        </article>
+        <article class="offer">
+          <div class="offer-top"><p class="offer-meta">Reeks sessies · maatwerk</p></div>
+          <h3>AI in je dagelijkse werk</h3>
+          <p>Voor teams die na de basis verder willen. In een paar sessies maken we AI een vast onderdeel van het werk.</p>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg>Per team de taken waar AI tijd scheelt</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Korte praktijkopdrachten tussen de sessies</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Jullie eigen AI-assistenten bouwen</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Bijsturen tot het een gewoonte is</li>
+          </ul>
+          <div class="price"><strong>Op maat</strong><span>Je krijgt vooraf een duidelijke prijs.</span></div>
+        </article>
+        <article class="offer">
+          <div class="offer-top"><p class="offer-meta">Voor directie en hr · halve dag</p></div>
+          <h3>AI-afspraken op orde</h3>
+          <p>Wie mag wat, met welke tool? Welke gegevens blijven binnen? Samen maken we heldere afspraken.</p>
+          <ul>
+            <li><svg class="ic"><use href="#i-check"/></svg>Praktische AI-afspraken op één A4</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Wat de AI-verordening van jullie vraagt</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Een plan voor de rest van de organisatie</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>Goed te combineren met een basistraining</li>
+          </ul>
+          <div class="price"><strong>vanaf € 1.250</strong><span>Exclusief btw.</span></div>
+        </article>
+      </div>
+      <p class="note">De prijs hangt af van de groepsgrootte en hoeveel maatwerk jullie willen. Bij een grote groep kan ik ook per deelnemer rekenen. Een intakegesprek, een bewijs van deelname en een deelnemerslijst voor je dossier zitten er altijd bij.</p>
+    </div>
+  </section>
+
+  <section class="section" id="werkwijze">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2>Van kennismaking tot training</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Kennismaken</h3>
+          <p>Een gesprek van 30 minuten, gratis. Wat doen jullie en waar valt de meeste winst te halen?</p>
+        </li>
+        <li>
+          <h3>Voorstel op maat</h3>
+          <p>Je krijgt een voorstel met programma en prijs. Geen verrassingen achteraf.</p>
+        </li>
+        <li>
+          <h3>Training op locatie</h3>
+          <p>Op een moment dat jullie uitkomt. We werken met echte voorbeelden uit jullie werk.</p>
+        </li>
+        <li class="optional">
+          <h3>Doorpakken</h3>
+          <p>Wil je dat het echt blijft hangen? Dan volgt een korte reeks sessies.</p>
+          <div class="loop" aria-label="Sessie, oefenen in je werk, bespreken, en weer een sessie"><span>Sessie</span><i>→</i><span>Oefenen</span><i>→</i><span>Bespreken</span><i>↺</i></div>
+          <p class="example">Opdracht: laat AI je volgende offerte voorbereiden en vergelijk die met je eigen versie.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section alt" id="over">
+    <div class="wrap about">
+      <aside class="profile">
+        <div class="photo photo-img" role="img" aria-label="Foto van Bas Heerkens"></div>
+        <div class="profile-name"><strong>Bas Heerkens</strong><span>AI-trainer, docent en psycholoog</span></div>
+        <ul class="creds">
+          <li><svg class="ic"><use href="#i-users"/></svg>300+ professionals getraind in AI</li>
+          <li><svg class="ic"><use href="#i-uni"/></svg>Verbonden aan Hogeschool Utrecht, lid van de AI-transformatiehub</li>
+          <li><svg class="ic"><use href="#i-cap"/></svg>Trainer en docent sinds 2016</li>
+          <li><svg class="ic"><use href="#i-brain"/></svg>MSc Economische psychologie, Tilburg University</li>
+          <li><svg class="ic"><use href="#i-globe"/></svg>Trainingen in het Nederlands, Engels en Spaans</li>
+        </ul>
+      </aside>
+      <div class="about-text">
+        <p class="eyebrow">Je trainer</p>
+        <h2>Ik werk elke dag met AI. En met mensen die ermee moeten leren werken.</h2>
+        <p>Bij Hogeschool Utrecht leid ik de invoering van AI bij de opleiding International Business. Ik adviseer managementteams en directeuren in een organisatie van 4.000 medewerkers, en ik heb de afgelopen jaren meer dan 300 professionals getraind in AI.</p>
+        <p>Daarvoor bouwde ik mee aan een commercieel opleidingsbedrijf. Ik zette er een bootcamp op, gaf leiding aan een team en leidde meer dan 120 mensen op in digitale vaardigheden. Ik ken de bedrijfswereld en weet wat een training moet opleveren.</p>
+        <p class="pullquote">Een tool leren kennen is het makkelijke deel. Het lastige is zorgen dat mensen hem blijven gebruiken.</p>
+        <p><strong>Daar komt mijn achtergrond als psycholoog van pas.</strong> Ik weet waarom mensen twijfelen, terugvallen in oude gewoontes of AI juist te veel vertrouwen. Daar houd ik in elke training rekening mee.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="vragen">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Veelgestelde vragen</p><h2>Goed om te weten</h2></div>
+      <div class="faq">
+        <details>
+          <summary>Is dit ook voor collega's zonder ervaring?</summary>
+          <p>Ja. Je hebt geen technische kennis nodig. Neem wel een laptop mee. Collega's die al verder zijn, krijgen tijdens de training lastigere opdrachten.</p>
+        </details>
+        <details>
+          <summary>Welke tools gebruiken we?</summary>
+          <p>De tools die jullie al hebben of willen gaan gebruiken. Meestal zijn dat ChatGPT, Claude, Microsoft Copilot of Google Gemini. We kijken ook naar AI-agents: wat ze kunnen en waar je op moet letten.</p>
+        </details>
+        <details>
+          <summary>Hoe zit het met privacy en klantgegevens?</summary>
+          <p>Daar besteden we in elke training aandacht aan. Je leert wat je wel en niet in een AI-tool zet en hoe je de instellingen goed zet.</p>
+        </details>
+        <details>
+          <summary>Online of op locatie?</summary>
+          <p>Op locatie. Ik kom naar jullie toe. Zo werken we met jullie eigen werk en kan ik iedereen goed begeleiden.</p>
+        </details>
+        <details>
+          <summary>Wat kost het?</summary>
+          <p>Een halve dag basistraining kost vanaf € 1.250, een hele dag vanaf € 2.500, exclusief btw. De prijs hangt af van de groepsgrootte en het maatwerk. Bij een grote groep kan ik ook per deelnemer rekenen. Je weet vooraf waar je aan toe bent.</p>
+        </details>
+        <details>
+          <summary>Helpt dit bij de AI-verordening?</summary>
+          <p>Ja. Iedere deelnemer krijgt een bewijs van deelname en jij krijgt een deelnemerslijst voor je dossier. Zo kun je laten zien dat je werkt aan AI-geletterdheid. Dit is geen juridisch advies.</p>
+        </details>
+        <details>
+          <summary>Kan de training ook in het Engels of Spaans?</summary>
+          <p>Ja. Ik geef trainingen in het Nederlands, Engels en Spaans, ook aan internationale teams.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-intro">
+        <div class="contact-me"><div class="avatar photo-img" role="img" aria-label="Foto van Bas Heerkens"></div><div><strong>Bas Heerkens</strong><span>AI-trainer, docent en psycholoog</span></div></div>
+        <h2>Zullen we <mark class="hl">kennismaken</mark>?</h2>
+        <p>Een gesprek van 30 minuten. Gratis en zonder verplichtingen. Jij vertelt waar jullie staan, ik vertel wat ik zou doen.</p>
+        <div class="contact-card">
+          <div class="contact-row">
+            <span class="label">E-mail</span>
+            <span class="val" id="c-mail">bas.heerkens@gmail.com</span>
+            <button type="button" class="copy" id="copy-mail" data-copy="bas.heerkens@gmail.com" data-target="c-mail">Kopieer</button>
+          </div>
+          <div class="contact-row">
+            <span class="label">Telefoon</span>
+            <span class="val" id="c-tel">06 20 81 61 83</span>
+            <button type="button" class="copy" id="copy-tel" data-copy="0620816183" data-target="c-tel">Kopieer</button>
+          </div>
+          <div class="contact-row">
+            <span class="label">LinkedIn</span>
+            <a class="val" href="https://www.linkedin.com/in/basheerkens/" target="_blank" rel="noopener">linkedin.com/in/basheerkens</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="kennismaking" novalidate>
+        <h3>Plan een kennismaking</h3>
+        <p class="form-sub">Laat je gegevens achter. Ik neem zelf contact met je op.</p>
+        <input type="hidden" name="access_key" id="f-key" value="39457793-dea3-48ae-8844-a6cc47cdd16a">
+        <input type="hidden" name="from_name" value="onlineinfluence.nl">
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-naam">Naam</label>
+            <input id="f-naam" name="naam" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-bedrijf">Bedrijf</label>
+            <input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-tel">Telefoon <span class="opt">optioneel</span></label>
+            <input id="f-tel" name="telefoon" type="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-groep">Hoeveel mensen?</label>
+            <select id="f-groep" name="groepsgrootte">
+              <option value="Weet ik nog niet">Weet ik nog niet</option>
+              <option value="1 tot 5">1 tot 5</option>
+              <option value="6 tot 15">6 tot 15</option>
+              <option value="16 tot 30">16 tot 30</option>
+              <option value="Meer dan 30">Meer dan 30</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-interesse">Waar heb je interesse in?</label>
+            <select id="f-interesse" name="interesse">
+              <option value="Weet ik nog niet">Weet ik nog niet</option>
+              <option value="AI-basistraining">AI-basistraining</option>
+              <option value="AI in je dagelijkse werk">AI in je dagelijkse werk</option>
+              <option value="AI-afspraken op orde">AI-afspraken op orde</option>
+            </select>
+          </div>
+          <div class="field field-wide">
+            <label for="f-bericht">Waar lopen jullie tegenaan? <span class="opt">optioneel</span></label>
+            <textarea id="f-bericht" name="bericht" rows="3"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="f-botcheck">Laat dit vakje leeg</label>
+            <input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off">
+          </div>
+        </div>
+        <div class="captcha-slot">
+          <div class="h-captcha" data-captcha="true"></div>
+          <p class="captcha-note" id="captcha-note"><svg class="ic"><use href="#i-shield"/></svg>Op de live site staat hier een korte robotcheck.</p>
+        </div>
+        <button class="btn form-btn" id="f-submit" type="submit">Verstuur aanvraag</button>
+        <p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p>
+        <p class="form-privacy">Ik gebruik je gegevens alleen om contact met je op te nemen. Het formulier wordt verwerkt via Web3Forms en beveiligd met hCaptcha.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Online Influence · KvK 68053428</span>
+    <span>© 2026 Bas Heerkens</span>
+  </div>
+</footer>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var nav = document.getElementById('site-nav');
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  (function () {
+    var form = document.getElementById('kennismaking');
+    var status = document.getElementById('f-status');
+    var button = document.getElementById('f-submit');
+    var keyInput = document.getElementById('f-key');
+    var ENDPOINT = 'https://api.web3forms.com/submit';
+    var host = location.hostname;
+    var isLive = /(^|\.)onlineinfluence\.nl$/.test(host) || /\.github\.io$/.test(host);
+    var keyMissing = /^VUL-HIER/.test(keyInput.value);
+
+    if (isLive) {
+      document.getElementById('captcha-note').hidden = true;
+      var s = document.createElement('script');
+      s.src = 'https://web3forms.com/client/script.js';
+      s.async = true;
+      s.defer = true;
+      document.body.appendChild(s);
+    }
+
+    function show(msg, isError) {
+      status.textContent = msg;
+      status.classList.toggle('is-error', !!isError);
+      status.hidden = false;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var firstBad = null;
+      form.querySelectorAll('[required]').forEach(function (el) {
+        var v = el.value.trim();
+        var bad = !v || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+        el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad && !firstBad) firstBad = el;
+      });
+      if (firstBad) {
+        show('Vul je naam, bedrijf en een geldig e-mailadres in.', true);
+        firstBad.focus();
+        return;
+      }
+      if (!isLive) {
+        show('Dit is een voorbeeldweergave, hier wordt niets verstuurd. Op onlineinfluence.nl komt je aanvraag direct bij mij binnen.', false);
+        return;
+      }
+      if (keyMissing) {
+        show('Het formulier is nog niet ingesteld. Mail me direct op bas.heerkens@gmail.com.', true);
+        return;
+      }
+      var token = form.querySelector('[name="h-captcha-response"]');
+      if (!token || !token.value) {
+        show('Vink eerst de robotcheck aan.', true);
+        return;
+      }
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      data.subject = 'Kennismaking via onlineinfluence.nl: ' + data.bedrijf;
+      button.disabled = true;
+      button.textContent = 'Bezig met versturen…';
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.success) {
+            form.reset();
+            if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (err) {} }
+            show('Dank je! Je aanvraag is verstuurd. Ik neem zo snel mogelijk contact met je op.', false);
+          } else {
+            show('Versturen lukte niet. Mail me direct op bas.heerkens@gmail.com.', true);
+          }
+        })
+        .catch(function () {
+          show('Versturen lukte niet. Mail me direct op bas.heerkens@gmail.com.', true);
+        })
+        .then(function () {
+          button.disabled = false;
+          button.textContent = 'Verstuur aanvraag';
+        });
+    });
+  })();
+
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var target = document.getElementById(btn.getAttribute('data-target'));
+      function done(label) {
+        btn.textContent = label;
+        setTimeout(function () { btn.textContent = 'Kopieer'; }, 1800);
+      }
+      function selectFallback() {
+        try {
+          var range = document.createRange();
+          range.selectNodeContents(target);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          done('Geselecteerd');
+        } catch (e) { done('Kopieer'); }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done('Gekopieerd'); }, selectFallback);
+      } else {
+        selectFallback();
+      }
+    });
+  });
+</script>
+</body>
+</html>
