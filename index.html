@@ -6,9 +6,8 @@
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>AI-training voor mkb-teams | Bas Heerkens</title>
 <meta name="description" content="Praktische AI-training op locatie voor mkb-teams. Met jullie eigen werk, van de basis tot AI-agents.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Layout: een trainingshand-out. Links uitgelijnd, markeerstift op kernwoorden, iconen per toepassing, CBS-cijfers als staven op schaal, een echte stappenreeks. */
 :root {
@@ -361,6 +360,8 @@ svg.ic { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor
 .form-status { font-size: .98rem; padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); color: var(--ink); }
 .form-status.is-error { background: var(--chip); border-left: 3px solid var(--error); }
 .form-privacy { font-size: .82rem; color: var(--muted); }
+.form-privacy a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.foot a { color: var(--band-ink); text-decoration: underline; text-underline-offset: 3px; }
 .foot { background: var(--band); color: var(--band-muted); font-size: .85rem; border-top: 1px solid rgba(242, 244, 248, .12); }
 .foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: space-between; }
 
@@ -855,7 +856,7 @@ svg.ic { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor
         </div>
         <button class="btn form-btn" id="f-submit" type="submit">Verstuur aanvraag</button>
         <p class="form-status" id="f-status" role="status" aria-live="polite" hidden></p>
-        <p class="form-privacy">Ik gebruik je gegevens alleen om contact met je op te nemen. Het formulier wordt verwerkt via Web3Forms en beveiligd met hCaptcha.</p>
+        <p class="form-privacy">Ik gebruik je gegevens alleen om op je aanvraag te reageren. Lees meer in de <a href="privacy.html">privacyverklaring</a>.</p>
       </form>
     </div>
   </section>
@@ -864,7 +865,7 @@ svg.ic { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor
 <footer class="foot">
   <div class="wrap">
     <span>Online Influence · KvK 68053428</span>
-    <span>© 2026 Bas Heerkens</span>
+    <span><a href="privacy.html">Privacyverklaring</a> · © 2026 Bas Heerkens</span>
   </div>
 </footer>
 </div>
